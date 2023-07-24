@@ -1,0 +1,29 @@
+name: test_app_redisai
+run-name: App Test Run
+on: [push]
+jobs:
+  Dependencies_prep:
+    runs-on: ubuntu-latest
+    services:
+      redis-ai:
+        image: redislabs/redisai:latest-cpu-x64-bionic
+        ports:
+          - 6379:6379
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          - python-version: '3.8'
+      - name: Install PyTorch
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch==1.11.0+cpu torchvision==0.12.0+cpu --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Install RedisAI
+        run: |
+          pip install redisai
+      - name: App Running
+        run: python app.py --image img/dog.jpeg --model_name resnet50
+        env:
+          - REDIS_HOST: localhost
+          - REDIS_PORT: 6379
