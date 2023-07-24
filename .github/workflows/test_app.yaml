@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       redis-ai:
-        image: redislabs/redisai:latest-cpu-x64-bionic
+        image: redislabs/redisai:latest
         ports:
           - 6379:6379
     steps:
