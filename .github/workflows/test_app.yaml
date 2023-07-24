@@ -2,7 +2,7 @@ name: test_app_redisai
 run-name: App Test Run
 on: [push]
 jobs:
-  Dependencies_prep:
+  Prepare and Run App:
     runs-on: ubuntu-latest
     services:
       redis-ai:
